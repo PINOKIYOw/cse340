@@ -1,6 +1,8 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { testConnection } from './src/models/db.js';
+import { getAllOrganizations } from './src/models/organizations.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,11 +32,24 @@ app.get('/categories', (req, res) => {
   res.render('categories', { title: 'Service Project Categories' });
 });
 
+app.get('/organizations', async (req, res) => {
+    const organizations = await getAllOrganizations();
+    const title = 'Our Partner Organizations';
+
+    res.render('organizations', { title, organizations });
+});
+
 // A simple not-found page keeps unknown routes from returning a blank response.
 app.use((req, res) => {
   res.status(404).render('404', { title: 'Page Not Found' });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
+app.listen(PORT, async () => {
+  try {
+    await testConnection();
+    console.log(`Server is running at http://127.0.0.1:${PORT}`);
+    console.log(`Environment: ${NODE_ENV}`);
+  } catch (error) {
+    console.error('Error connecting to the database:', error);
+  }
 });

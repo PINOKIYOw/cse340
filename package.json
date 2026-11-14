@@ -4,7 +4,16 @@
   "description": "CSE 340 Service Network - Web Backend Development",
   "type": "module",
   "main": "server.js",
-  "scripts": { "dev": "nodemon", "start": "node server.js" },
-  "dependencies": { "ejs": "^7.0.2", "express": "^5.3.0" },
-  "devDependencies": { "nodemon": "^3.1.14" }
+  "scripts": {
+    "dev": "nodemon",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ejs": "^7.0.2",
+    "express": "^5.3.0",
+    "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
 }
